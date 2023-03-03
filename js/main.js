@@ -10,7 +10,7 @@ const aiCards = async (dataLimit) => {
 
 // Display Card Start 
 const displayAiCards = (data, dataLimit) => {
-
+  
   // display maximum 6 Ai Tools Start
   let showAllDateContainer = document.getElementById('showAllDateContainer');
   if (dataLimit && data.length > 6) {
@@ -24,6 +24,8 @@ const displayAiCards = (data, dataLimit) => {
 
   //  display all ai tools  start
   data.forEach(data => {
+    // console.log(data.id);
+    
     document.getElementById('aiCardContainer').innerHTML += `   
       <div class="card mt-3 w-96 bg-base-100 shadow-xl border ">
       <figure class="px-10 pt-10">
@@ -41,7 +43,7 @@ const displayAiCards = (data, dataLimit) => {
               <p><img src="./icon/icon.png" alt="Date Icon" class="inline" > ${data.published_in} </p>
           </div>
           <div class="card-actions pt-5">
-              <label  for="my-modal-3" class="btn btn-outline btn-error text-sm font-bold">Details</label >               
+              <label  for="my-modal-3" class="btn btn-outline btn-error text-sm font-bold" onclick="showAiToolsDetails('${data.id}')">Details</label >               
           </div>
        </section>         
       </div>
@@ -77,7 +79,47 @@ const toggleSpinner = isLoading => {
 }
 // Loder of Spinner End 
 
+
+
+// Show Ai tools Details Start
+const showAiToolsDetails = async(id) =>{
+  const URL = `https://openapi.programming-hero.com/api/ai/tool/${id}`
+  const res = await fetch(URL)
+  const data = await res.json()
+  displayAiToolsDetails(data.data);
+}
+// Show Ai tools Details End
+
+// display Ai Tools Details Start 
+const displayAiToolsDetails = (data) =>{
+  console.log(data.integrations);
+  const {description,} = data;
+  // console.log(data.image_link[0]);
+  document.getElementById('aiDescription').innerText = description
+  document.getElementById('cardLogo').setAttribute('src',data.image_link[0])
+  document.getElementById('price1').innerText = data.pricing[0].price ? data.pricing[0].price : 'Free of Cost/'
+  document.getElementById('price2').innerText = data.pricing[1].price ? data.pricing[1].price : 'Free of Cost/'
+  document.getElementById('price3').innerText = data.pricing[2].price ? data.pricing[2].price : 'Free of Cost/'
+  document.getElementById('plan1').innerText = data.pricing[0].plan
+  document.getElementById('plan2').innerText = data.pricing[1].plan
+  document.getElementById('plan3').innerText = data.pricing[2].plan
+
+  // for features 
+  // document.getElementById('list1').innerText = data.features.feature_name
+  // document.getElementById('list2').innerText = data.features.feature_name
+  // document.getElementById('list3').innerText = data.features.feature_name
+
+  // for Integrations
+  document.getElementById('list4').innerText = data.integrations[0] ? data.integrations[0] : 'No data Found'
+  document.getElementById('list5').innerText = data.integrations[1] ? data.integrations[1] : 'No data Found'
+  document.getElementById('list6').innerText = data.integrations[2] ? data.integrations[2] : 'No data Found'
+
+//display Ai Tools Details End
+
+}
+
+
+// showAiToolsDetails('04')
 // start spinner or loader
 toggleSpinner(true)
 aiCards(6)
-// toggleSpinner(false)
