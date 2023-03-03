@@ -34,17 +34,17 @@
       <!-- The button to open modal -->
       <input type="checkbox" id="my-modal-3" class="modal-toggle" />
       <div class="modal ">
-        <div class="modal-box relative w-11/12 max-w-7xl">
+        <div class="modal-box relative w-12/12  lg:w-11/12 lg:max-w-7xl">
           <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
     
-          <section class="flex justify-evenly">
+          <section class="flex flex-col lg:flex-row justify-evenly">
             <!-- left side card Start  -->
     
             <div class="">
-              <div class="card w-8/12 bg-red-50 shadow-xl">
+              <div class="card w-12/12 lg:w-8/12 bg-red-50 shadow-xl">
                 <div class="card-body">
-                <h2 class="text-2xl font-bold" id="aiDescription">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus, corporis maxime doloremque veritatis et sint sit atque non nobis recusandae accusantium eius, consequuntur inventore facere officiis harum dicta error fugit?</h2>
-                  <div class="flex gap-1 ">
+                <h2 class="text-lg lg:text-2xl font-bold" id="aiDescription">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus, corporis maxime doloremque veritatis et sint sit atque non nobis recusandae accusantium eius, consequuntur inventore facere officiis harum dicta error fugit?</h2>
+                  <div class="flex flex-col lg:flex-row gap-1 ">
                     <div class="p-4 rounded-lg bg-amber-50 text-lg font-bold">
                       <h1 class="text-gray-500" id="price1">$456/month
                        </h1> <span id="plan1">Basic</span>
@@ -59,7 +59,7 @@
                     </div>
                   </div>
                   
-                  <div class="flex justify-between">
+                  <div class="flex flex-col lg:flex-row justify-between">
                     <!-- Features section Start  -->
                     <div>
                       <h1 class="text-2xl font-bold pb-2">Features</h1>
@@ -86,8 +86,8 @@
             </div>
             <!-- left side card End  -->
             <!-- Right side card Start -->
-            <div>
-              <div class="card w-96 bg-base-100 shadow-xl">
+            <div class="mt-5 lg:mt-0">
+              <div class="card  w-80  lg:w-96 bg-base-100 shadow-xl">
                 <figure><img src="/img.png" id="cardLogo" alt="Shoes" class="relative" />
                 <h1 id="accuracyScoreContainer" class="absolute top-2 right-2 p-2 rounded-lg text-white font-light bg-red-500"> <span id="accuracyScore"></span>% accuracy</h1>
                 </figure>

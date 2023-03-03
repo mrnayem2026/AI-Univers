@@ -96,10 +96,8 @@ const displayAiToolsDetails = (data) => {
   // accuracy dynamic start
 
   let getScoreNumber = data.accuracy.score;
-  console.log(getScoreNumber);
   if (getScoreNumber === null) {
     document.getElementById('accuracyScoreContainer').classList.add('hidden');
-    console.log("Inside error");
   } else {
     document.getElementById('accuracyScoreContainer').classList.remove('hidden');
     const numStr = getScoreNumber.toString(); // convert the number to a string
@@ -136,9 +134,14 @@ const displayAiToolsDetails = (data) => {
   document.getElementById('plan3').innerText = data.pricing[2].plan
 
   // for features 
-  // document.getElementById('list1').innerText = data.features.feature_name
-  // document.getElementById('list2').innerText = data.features.feature_name
-  // document.getElementById('list3').innerText = data.features.feature_name
+  // console.log(data.features);
+  let objetArrayFormfeatures = Object.values(data.features)
+  console.log(objetArrayFormfeatures[0].feature_name)
+  console.log(objetArrayFormfeatures[1].feature_name)
+  console.log(objetArrayFormfeatures[2].feature_name)
+  document.getElementById('list1').innerText = objetArrayFormfeatures[0].feature_name
+  document.getElementById('list2').innerText = objetArrayFormfeatures[1].feature_name
+  document.getElementById('list3').innerText =objetArrayFormfeatures[2].feature_name
 
   // for Integrations
   document.getElementById('list4').innerText = data.integrations[0] ? data.integrations[0] : 'No data Found'
