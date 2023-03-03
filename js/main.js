@@ -10,7 +10,7 @@ const aiCards = async (dataLimit) => {
 
 // Display Card Start 
 const displayAiCards = (data, dataLimit) => {
-  
+
   // display maximum 6 Ai Tools Start
   let showAllDateContainer = document.getElementById('showAllDateContainer');
   if (dataLimit && data.length > 6) {
@@ -24,8 +24,6 @@ const displayAiCards = (data, dataLimit) => {
 
   //  display all ai tools  start
   data.forEach(data => {
-    // console.log(data.id);
-    
     document.getElementById('aiCardContainer').innerHTML += `   
       <div class="card mt-3 w-96 bg-base-100 shadow-xl border ">
       <figure class="px-10 pt-10">
@@ -50,15 +48,15 @@ const displayAiCards = (data, dataLimit) => {
     </div> 
       `
   })
-   // stop spinner or loader
-   toggleSpinner(false);
+  // stop spinner or loader
+  toggleSpinner(false);
   //  display all ai tools  end
-  // console.log(data, dataLimit);
+
 }
 // Display Card End
 
 // "showAllDateBtn" for show all ai Card [Start] 
-document.getElementById('showAllDateBtn').addEventListener('click',function(){
+document.getElementById('showAllDateBtn').addEventListener('click', function () {
   // start spinner or loader
   toggleSpinner(true);
   document.getElementById('aiCardContainer').textContent = ''
@@ -70,11 +68,11 @@ document.getElementById('showAllDateBtn').addEventListener('click',function(){
 // Loder of Spinner Start 
 const toggleSpinner = isLoading => {
   const loaderSection = document.getElementById('lodder');
-  if(isLoading){
-      loaderSection.classList.remove('hidden')
+  if (isLoading) {
+    loaderSection.classList.remove('hidden')
   }
-  else{
-      loaderSection.classList.add('hidden');
+  else {
+    loaderSection.classList.add('hidden');
   }
 }
 // Loder of Spinner End 
@@ -82,7 +80,7 @@ const toggleSpinner = isLoading => {
 
 
 // Show Ai tools Details Start
-const showAiToolsDetails = async(id) =>{
+const showAiToolsDetails = async (id) => {
   const URL = `https://openapi.programming-hero.com/api/ai/tool/${id}`
   const res = await fetch(URL)
   const data = await res.json()
@@ -91,27 +89,48 @@ const showAiToolsDetails = async(id) =>{
 // Show Ai tools Details End
 
 // display Ai Tools Details Start 
-const displayAiToolsDetails = (data) =>{
-  console.log(data.input_output_examples);
-  // console.log(data.input_output_examples[2].output);
-  const {description,} = data;
-  // console.log(data.image_link[0]);
-  if(data.pricing === null ) {
-    document.getElementById('price1').innerText =  'Free of Cost/' 
-  document.getElementById('price2').innerText =  'Free of Cost/'
-  document.getElementById('price3').innerText = 'Free of Cost/'
+const displayAiToolsDetails = (data) => {
+
+
+
+  // accuracy dynamic start
+
+  let getScoreNumber = data.accuracy.score;
+  console.log(getScoreNumber);
+  if (getScoreNumber === null) {
+    document.getElementById('accuracyScoreContainer').classList.add('hidden');
+    console.log("Inside error");
+  } else {
+    document.getElementById('accuracyScoreContainer').classList.remove('hidden');
+    const numStr = getScoreNumber.toString(); // convert the number to a string
+    const decimalIndex = numStr.indexOf('.'); // get the index of the decimal point
+    const rightSideNum = numStr.substring(decimalIndex + 1); // extract the right-side numbers as a string
+    const result = Number(rightSideNum); // convert the string to a number
+    document.getElementById('accuracyScore').innerText = result;
   }
 
-  if(data.input_output_examples === null){
+  // accuracy dynamic end
+
+  //  Destruture start
+  const { description, } = data;
+  //  Destruture end
+
+  if (data.pricing === null) {
+    document.getElementById('price1').innerText = 'Free of Cost/'
+    document.getElementById('price2').innerText = 'Free of Cost/'
+    document.getElementById('price3').innerText = 'Free of Cost/'
+  }
+
+  if (data.input_output_examples === null) {
     document.getElementById('cardInput').innerText = "No! Not Yet! Take a break!!!"
     document.getElementById('cardOutpur').innerText = "No! Not Yet! Take a break!!!"
   }
 
   document.getElementById('aiDescription').innerText = description
-  document.getElementById('cardLogo').setAttribute('src',data.image_link[0])
-  document.getElementById('price1').innerText = data.pricing[0].price === '0' ? 'Free of Cost/' :  data.pricing[0].price === "No cost" ? 'Free of Cost/' : data.pricing[0].price === "Contact us " ? 'Free of Cost/' : data.pricing[0].price === "Contact us for pricing" ? 'Free of Cost/' : data.pricing[0].price
-  document.getElementById('price2').innerText = data.pricing[1].price === '0' ? 'Free of Cost/' :  data.pricing[1].price === "No cost" ? 'Free of Cost/' : data.pricing[1].price === "Contact us " ? 'Free of Cost/' : data.pricing[1].price === "Contact us for pricing" ? 'Free of Cost/' : data.pricing[1].price
-  document.getElementById('price3').innerText = data.pricing[2].price === '0' ? 'Free of Cost/' :  data.pricing[2].price === "No cost" ? 'Free of Cost/' : data.pricing[2].price === "Contact us " ? 'Free of Cost/' : data.pricing[2].price === "Contact us for pricing" ? 'Free of Cost/' : data.pricing[2].price 
+  document.getElementById('cardLogo').setAttribute('src', data.image_link[0])
+  document.getElementById('price1').innerText = data.pricing[0].price === '0' ? 'Free of Cost/' : data.pricing[0].price === "No cost" ? 'Free of Cost/' : data.pricing[0].price === "Contact us " ? 'Free of Cost/' : data.pricing[0].price === "Contact us for pricing" ? 'Free of Cost/' : data.pricing[0].price
+  document.getElementById('price2').innerText = data.pricing[1].price === '0' ? 'Free of Cost/' : data.pricing[1].price === "No cost" ? 'Free of Cost/' : data.pricing[1].price === "Contact us " ? 'Free of Cost/' : data.pricing[1].price === "Contact us for pricing" ? 'Free of Cost/' : data.pricing[1].price
+  document.getElementById('price3').innerText = data.pricing[2].price === '0' ? 'Free of Cost/' : data.pricing[2].price === "No cost" ? 'Free of Cost/' : data.pricing[2].price === "Contact us " ? 'Free of Cost/' : data.pricing[2].price === "Contact us for pricing" ? 'Free of Cost/' : data.pricing[2].price
   document.getElementById('plan1').innerText = data.pricing[0].plan
   document.getElementById('plan2').innerText = data.pricing[1].plan
   document.getElementById('plan3').innerText = data.pricing[2].plan
@@ -127,10 +146,10 @@ const displayAiToolsDetails = (data) =>{
   document.getElementById('list6').innerText = data.integrations[2] ? data.integrations[2] : 'No data Found'
 
   // cardInput and cardOutput
-  document.getElementById('cardInput').innerText = data.input_output_examples[1].input ===  "function sumArray(arr) {\n return arr.reduce((acc, curr) => acc + curr, 0);\n}" ? "No! Not Yet! Take a break!!!" : data.input_output_examples[1].input 
-  document.getElementById('cardOutpur').innerText = data.input_output_examples[1].output ===  "function sumArray(arr) {\n return arr.reduce((acc, curr) => acc + curr, 0);\n}" ? "No! Not Yet! Take a break!!!" : data.input_output_examples[1].output 
+  document.getElementById('cardInput').innerText = data.input_output_examples[1].input === "function sumArray(arr) {\n return arr.reduce((acc, curr) => acc + curr, 0);\n}" ? "No! Not Yet! Take a break!!!" : data.input_output_examples[1].input
+  document.getElementById('cardOutpur').innerText = data.input_output_examples[1].output === "function sumArray(arr) {\n return arr.reduce((acc, curr) => acc + curr, 0);\n}" ? "No! Not Yet! Take a break!!!" : data.input_output_examples[1].output
 
-//display Ai Tools Details End
+  //display Ai Tools Details End
 
 }
 
