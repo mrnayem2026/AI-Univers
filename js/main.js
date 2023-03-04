@@ -94,7 +94,7 @@ const showAiToolsDetails = async (id) => {
 // display Ai Tools Details Start 
 const displayAiToolsDetails = (data) => {
 
-  // console.log(data);
+  console.log(data);
 
   // accuracy dynamic start
   let getScoreNumber = data.accuracy.score;
@@ -117,19 +117,23 @@ const displayAiToolsDetails = (data) => {
     document.getElementById('price1').innerText = 'Free of Cost/'
     document.getElementById('price2').innerText = 'Free of Cost/'
     document.getElementById('price3').innerText = 'Free of Cost/'
+  } else {
+    document.getElementById('aiDescription').innerText = description
+    document.getElementById('cardLogo').setAttribute('src', data.image_link[0])
+    document.getElementById('price1').innerText = data.pricing[0].price 
+    document.getElementById('price2').innerText = data.pricing[1].price 
+    document.getElementById('price3').innerText = data.pricing[2].price 
+    document.getElementById('plan1').innerText = data.pricing[0].plan
+    document.getElementById('plan2').innerText = data.pricing[1].plan
+    document.getElementById('plan3').innerText = data.pricing[2].plan
+    console.log( description);
+    console.log( data.image_link[0]);
   }
 
 
 
 
-  // document.getElementById('aiDescription').innerText = description
-  // document.getElementById('cardLogo').setAttribute('src', data.image_link[0])
-  // document.getElementById('price1').innerText = data.pricing[0].price 
-  // document.getElementById('price2').innerText = data.pricing[1].price 
-  // document.getElementById('price3').innerText = data.pricing[2].price 
-  // document.getElementById('plan1').innerText = data.pricing[0].plan
-  // document.getElementById('plan2').innerText = data.pricing[1].plan
-  // document.getElementById('plan3').innerText = data.pricing[2].plan
+
 
 
   
