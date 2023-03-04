@@ -93,7 +93,7 @@ const showAiToolsDetails = async (id) => {
 // display Ai Tools Details Start 
 const displayAiToolsDetails = (data) => {
 
-
+  // console.log(data);
 
   // accuracy dynamic start
 
@@ -114,12 +114,12 @@ const displayAiToolsDetails = (data) => {
   //  Destruture start
   const { description, } = data;
   //  Destruture end
-
   if (data.pricing === null) {
     document.getElementById('price1').innerText = 'Free of Cost/'
     document.getElementById('price2').innerText = 'Free of Cost/'
     document.getElementById('price3').innerText = 'Free of Cost/'
   }
+
 
   if (data.input_output_examples === null) {
     document.getElementById('cardInput').innerText = "No! Not Yet! Take a break!!!"
@@ -128,9 +128,9 @@ const displayAiToolsDetails = (data) => {
 
   document.getElementById('aiDescription').innerText = description
   document.getElementById('cardLogo').setAttribute('src', data.image_link[0])
-  document.getElementById('price1').innerText = data.pricing[0].price === '0' ? 'Free of Cost/' : data.pricing[0].price === "No cost" ? 'Free of Cost/' : data.pricing[0].price === "Contact us " ? 'Free of Cost/' : data.pricing[0].price === "Contact us for pricing" ? 'Free of Cost/' : data.pricing[0].price
-  document.getElementById('price2').innerText = data.pricing[1].price === '0' ? 'Free of Cost/' : data.pricing[1].price === "No cost" ? 'Free of Cost/' : data.pricing[1].price === "Contact us " ? 'Free of Cost/' : data.pricing[1].price === "Contact us for pricing" ? 'Free of Cost/' : data.pricing[1].price
-  document.getElementById('price3').innerText = data.pricing[2].price === '0' ? 'Free of Cost/' : data.pricing[2].price === "No cost" ? 'Free of Cost/' : data.pricing[2].price === "Contact us " ? 'Free of Cost/' : data.pricing[2].price === "Contact us for pricing" ? 'Free of Cost/' : data.pricing[2].price
+  document.getElementById('price1').innerText = data.pricing[0].price 
+  document.getElementById('price2').innerText = data.pricing[1].price 
+  document.getElementById('price3').innerText = data.pricing[2].price 
   document.getElementById('plan1').innerText = data.pricing[0].plan
   document.getElementById('plan2').innerText = data.pricing[1].plan
   document.getElementById('plan3').innerText = data.pricing[2].plan
@@ -138,14 +138,38 @@ const displayAiToolsDetails = (data) => {
   // for features 
   // console.log(data.features);
   let objetArrayFormfeatures = Object.values(data.features)
-  document.getElementById('list1').innerText = objetArrayFormfeatures[0].feature_name
-  document.getElementById('list2').innerText = objetArrayFormfeatures[1].feature_name
-  document.getElementById('list3').innerText = objetArrayFormfeatures[2].feature_name
+  // console.log(objetArrayFormfeatures);
+  // console.log(data.features);
+
+  document.getElementById('Features').textContent = ''
+  objetArrayFormfeatures.forEach(data => {
+  document.getElementById('Features').innerHTML += 
+    `
+    <li id="list4">${data.feature_name}</li>
+    `
+   })
+
+  // document.getElementById('list1').innerText = objetArrayFormfeatures[0].feature_name
+  // document.getElementById('list2').innerText = objetArrayFormfeatures[1].feature_name
+  // document.getElementById('list3').innerText = objetArrayFormfeatures[2].feature_name
 
   // for Integrations
-  document.getElementById('list4').innerText = data.integrations[0] ? data.integrations[0] : 'No data Found'
-  document.getElementById('list5').innerText = data.integrations[1] ? data.integrations[1] : 'No data Found'
-  document.getElementById('list6').innerText = data.integrations[2] ? data.integrations[2] : 'No data Found'
+  document.getElementById('Integrations').textContent = ''
+ if(data.integrations === null  ) {
+  // console.log('No data Found');
+ }
+//  console.log(data.integrations)
+  // data.integrations.forEach(data => {
+  // data === null ? 'No data Found' :  document.getElementById('Integrations').innerHTML += 
+  //  `
+  //  <li id="list4">${data}</li>
+  //  `
+  // })
+ 
+
+  // document.getElementById('list4').innerText = data.integrations[0] ? data.integrations[0] : 'No data Found'
+  // document.getElementById('list5').innerText = data.integrations[1] ? data.integrations[1] : 'No data Found'
+  // document.getElementById('list6').innerText = data.integrations[2] ? data.integrations[2] : 'No data Found'
 
   // cardInput and cardOutput
   document.getElementById('cardInput').innerText = data.input_output_examples[1].input === "function sumArray(arr) {\n return arr.reduce((acc, curr) => acc + curr, 0);\n}" ? "No! Not Yet! Take a break!!!" : data.input_output_examples[1].input
@@ -194,9 +218,9 @@ const displayAiCardsSortData = (data, sortdate, dataLimit) => {
       </div>
     </div> 
       `
-      sortdate.forEach(data=> {
-        document.getElementById('SortDate').innerText += data
-      })
+      // sortdate.forEach(data=> {
+      //   document.getElementById('SortDate').innerText += data
+      // })
       
   })
   // stop spinner or loader
@@ -223,13 +247,14 @@ let showSortData = () => {
     (objA, objB) => Number(objB) - Number(objA),
   );
  
+
   // console.log(sortDate);
   document.getElementById('aiCardContainer').textContent = ''
   displayAiCardsSortData(fetchData, sortDate, 6)
 
 
 }
-
+//  sorting data end
 
 
 
