@@ -94,7 +94,7 @@ const showAiToolsDetails = async (id) => {
 // display Ai Tools Details Start 
 const displayAiToolsDetails = (data) => {
 
-  console.log(data);
+  // console.log(data);
 
   // accuracy dynamic start
   let getScoreNumber = data.accuracy.score;
@@ -120,10 +120,6 @@ const displayAiToolsDetails = (data) => {
   }
 
 
-  if (data.input_output_examples === null) {
-    document.getElementById('cardInput').innerText = "No! Not Yet! Take a break!!!"
-    document.getElementById('cardOutpur').innerText = "No! Not Yet! Take a break!!!"
-  }
 
 
   // document.getElementById('aiDescription').innerText = description
@@ -140,7 +136,7 @@ const displayAiToolsDetails = (data) => {
   // for features 
   // console.log(data.features);
   let objetArrayFormfeatures = Object.values(data.features)
-  console.log(objetArrayFormfeatures);
+  // console.log(objetArrayFormfeatures);
   document.getElementById('Features').textContent = ''
   objetArrayFormfeatures.forEach(data => {
   document.getElementById('Features').innerHTML += 
@@ -162,7 +158,7 @@ const displayAiToolsDetails = (data) => {
    `
  } else {
   data.integrations.forEach(data => {
-    console.log(data);
+    // console.log(data);
   data === null ? 'No data Found' :  document.getElementById('Integrations').innerHTML += 
    `
    <li id="list4">${data}</li>
@@ -178,8 +174,16 @@ const displayAiToolsDetails = (data) => {
   // document.getElementById('list6').innerText = data.integrations[2] ? data.integrations[2] : 'No data Found'
 
   // cardInput and cardOutput
-  document.getElementById('cardInput').innerText = data.input_output_examples[1].input === "function sumArray(arr) {\n return arr.reduce((acc, curr) => acc + curr, 0);\n}" ? "No! Not Yet! Take a break!!!" : data.input_output_examples[1].input
-  document.getElementById('cardOutpur').innerText = data.input_output_examples[1].output === "function sumArray(arr) {\n return arr.reduce((acc, curr) => acc + curr, 0);\n}" ? "No! Not Yet! Take a break!!!" : data.input_output_examples[1].output
+  if (data.input_output_examples === null) {
+    document.getElementById('cardInput').innerText = "No! Not Yet! Take a break!!!"
+    document.getElementById('cardOutpur').innerText = "No! Not Yet! Take a break!!!"
+  } else {
+    console.log(data.input_output_examples);
+    document.getElementById('cardInput').innerText = data.input_output_examples[1].input === "function sumArray(arr) {\n return arr.reduce((acc, curr) => acc + curr, 0);\n}" ? "No! Not Yet! Take a break!!!" : data.input_output_examples[1].input
+    document.getElementById('cardOutpur').innerText = data.input_output_examples[1].output === "function sumArray(arr) {\n return arr.reduce((acc, curr) => acc + curr, 0);\n}" ? "No! Not Yet! Take a break!!!" : data.input_output_examples[1].output
+  }
+
+ 
 
   //display Ai Tools Details End
 }
