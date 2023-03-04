@@ -178,7 +178,6 @@ const displayAiToolsDetails = (data) => {
     document.getElementById('cardInput').innerText = "No! Not Yet! Take a break!!!"
     document.getElementById('cardOutpur').innerText = "No! Not Yet! Take a break!!!"
   } else {
-    console.log(data.input_output_examples);
     document.getElementById('cardInput').innerText = data.input_output_examples[1].input === "function sumArray(arr) {\n return arr.reduce((acc, curr) => acc + curr, 0);\n}" ? "No! Not Yet! Take a break!!!" : data.input_output_examples[1].input
     document.getElementById('cardOutpur').innerText = data.input_output_examples[1].output === "function sumArray(arr) {\n return arr.reduce((acc, curr) => acc + curr, 0);\n}" ? "No! Not Yet! Take a break!!!" : data.input_output_examples[1].output
   }
@@ -186,7 +185,7 @@ const displayAiToolsDetails = (data) => {
  
 
   //display Ai Tools Details End
-}
+
 
 // Display ai tools by sort data [Start]
 const displayAiCardsSortData = (data, sortdate, dataLimit) => {
@@ -263,7 +262,7 @@ let showSortData = () => {
   displayAiCardsSortData(fetchData, sortDate, 6)
 
 
-}
+}}
 //  sorting data end
 
 
