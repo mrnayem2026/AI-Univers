@@ -26,6 +26,7 @@ const displayAiCards = (data, dataLimit) => {
 
   //  display all ai tools  start
   data.forEach(data => {
+    // console.log(data.id);
     document.getElementById('aiCardContainer').innerHTML += `   
       <div class="card mt-3 w-96 bg-base-100 shadow-xl border ">
       <figure class="px-10 pt-10">
@@ -93,10 +94,9 @@ const showAiToolsDetails = async (id) => {
 // display Ai Tools Details Start 
 const displayAiToolsDetails = (data) => {
 
-  // console.log(data);
+  console.log(data);
 
   // accuracy dynamic start
-
   let getScoreNumber = data.accuracy.score;
   if (getScoreNumber === null) {
     document.getElementById('accuracyScoreContainer').classList.add('hidden');
@@ -108,7 +108,6 @@ const displayAiToolsDetails = (data) => {
     const result = Number(rightSideNum); // convert the string to a number
     document.getElementById('accuracyScore').innerText = result;
   }
-
   // accuracy dynamic end
 
   //  Destruture start
@@ -126,21 +125,22 @@ const displayAiToolsDetails = (data) => {
     document.getElementById('cardOutpur').innerText = "No! Not Yet! Take a break!!!"
   }
 
-  document.getElementById('aiDescription').innerText = description
-  document.getElementById('cardLogo').setAttribute('src', data.image_link[0])
-  document.getElementById('price1').innerText = data.pricing[0].price 
-  document.getElementById('price2').innerText = data.pricing[1].price 
-  document.getElementById('price3').innerText = data.pricing[2].price 
-  document.getElementById('plan1').innerText = data.pricing[0].plan
-  document.getElementById('plan2').innerText = data.pricing[1].plan
-  document.getElementById('plan3').innerText = data.pricing[2].plan
 
+  // document.getElementById('aiDescription').innerText = description
+  // document.getElementById('cardLogo').setAttribute('src', data.image_link[0])
+  // document.getElementById('price1').innerText = data.pricing[0].price 
+  // document.getElementById('price2').innerText = data.pricing[1].price 
+  // document.getElementById('price3').innerText = data.pricing[2].price 
+  // document.getElementById('plan1').innerText = data.pricing[0].plan
+  // document.getElementById('plan2').innerText = data.pricing[1].plan
+  // document.getElementById('plan3').innerText = data.pricing[2].plan
+
+
+  
   // for features 
   // console.log(data.features);
   let objetArrayFormfeatures = Object.values(data.features)
-  // console.log(objetArrayFormfeatures);
-  // console.log(data.features);
-
+  console.log(objetArrayFormfeatures);
   document.getElementById('Features').textContent = ''
   objetArrayFormfeatures.forEach(data => {
   document.getElementById('Features').innerHTML += 
@@ -155,16 +155,22 @@ const displayAiToolsDetails = (data) => {
 
   // for Integrations
   document.getElementById('Integrations').textContent = ''
- if(data.integrations === null  ) {
-  // console.log('No data Found');
+ if(data.integrations ===  null  ) {
+  document.getElementById('Integrations').innerHTML += 
+   `
+   <li id="list4">No data Found</li>
+   `
+ } else {
+  data.integrations.forEach(data => {
+    console.log(data);
+  data === null ? 'No data Found' :  document.getElementById('Integrations').innerHTML += 
+   `
+   <li id="list4">${data}</li>
+   `
+  })
  }
-//  console.log(data.integrations)
-  // data.integrations.forEach(data => {
-  // data === null ? 'No data Found' :  document.getElementById('Integrations').innerHTML += 
-  //  `
-  //  <li id="list4">${data}</li>
-  //  `
-  // })
+
+  
  
 
   // document.getElementById('list4').innerText = data.integrations[0] ? data.integrations[0] : 'No data Found'
