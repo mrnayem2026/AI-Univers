@@ -1,39 +1,28 @@
-// let products = [
-//     {
-//       "product_name": "The Witchers",
-//       "type": "book",
-//       "manufactured": new Date('2019-05-13'),
-//       "price": 800
-//     },
-//     {
-//       "product_name": "Black Heels",
-//       "type": "Shoes",
-//       "manufactured": new Date('2021-07-06'),
-//       "price": 2500
-//     },
-//     {
-//       "product_name": "Skybags",
-//       "type": "Bags",
-//       "manufactured": new Date('2020-09-22'),
-//       "price": 2200
-//     },
-//     {
-//       "product_name": "OnePlus 9",
-//       "type": "Mobile Phone",
-//       "manufactured": new Date('2021-03-23'),
-//       "price": 49000
-//     },
-//   ]
-//   console.log("Original Products are:")
-//   console.log(products)
-//   let sortedProducts = products.sort(
-//       (p1, p2) => (p1.price < p2.price) ? 1 : (p1.price > p2.price) ? -1 : 0);
-  
-//   console.log("Products sorted based on descending order of their prices are:")
-//   console.log(sortedProducts);
-  
+const arr1 = [
+  // {id: 3, date: '24-02-2022'},
+  // {id: 5, date: '24-02-2027'},
+  // {id: 2, date: '24-02-2023'},
+  {id: 3, date: '2022-02-24'},
+  {id: 5, date: '2027-02-24'},
+  {id: 2, date: '2023-02-24'},
+].map(obj => {
+  return {...obj, date: new Date(obj.date)};
+});
 
-// const num = 0; num != 0 ? num > 0 ?
-// 	console.log("Entered number is positive") :
-// 	console.log("Entered number is negative") :
-// 	console.log("You entered zero")
+// console.log(arr1);
+
+// ✅ Sort in Ascending order (low to high)
+const sortedAsc = arr1.sort(
+  (objA, objB) => Number(objA.date) - Number(objB.date),
+);
+
+// 👇️ {id: 3, date: Thu Feb 24 2022,
+//     id: 2, date: Fri Feb 24 2023
+//     id: 5, date: Wed Feb 24 2027}
+// console.log(sortedAsc);
+
+
+let originalDate = '24/02/2022'; // Declare a variable and assign the original date string to it.
+let splitDate = originalDate.split('/'); // Split the date string into an array of substrings using the '/' character as a separator.
+let formattedDate = splitDate[2] + '/' + splitDate[1] + '/' + splitDate[0]; // Construct a new date string by concatenating the year, month, and day values from the array in the desired order using the '/' character as a separator.
+// console.log(formattedDate); // Output the formatted date string to the console.
