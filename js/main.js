@@ -1,11 +1,12 @@
 // Fetch Date for show ai card Start 
 let fetchData = [];
-const aiCards = async (dataLimit) => {
+const aiCards = async (dataLimit, sorted = false) => {
   let URL = 'https://openapi.programming-hero.com/api/ai/tools'
   let res = await fetch(URL)
   let data = await res.json()
   fetchData = data.data.tools;
   displayAiCards(data.data.tools, dataLimit);
+  showCardsBySorted(data.data.tools,dataLimit,sorted);
 }
 // Fetch Date for show ai card End
 
@@ -94,7 +95,7 @@ const showAiToolsDetails = async (id) => {
 // display Ai Tools Details Start 
 const displayAiToolsDetails = (data) => {
 
-  console.log(data);
+
 
   // accuracy dynamic start
   let getScoreNumber = data.accuracy.score;
@@ -173,10 +174,7 @@ const displayAiToolsDetails = (data) => {
   
  
 
-  // document.getElementById('list4').innerText = data.integrations[0] ? data.integrations[0] : 'No data Found'
-  // document.getElementById('list5').innerText = data.integrations[1] ? data.integrations[1] : 'No data Found'
-  // document.getElementById('list6').innerText = data.integrations[2] ? data.integrations[2] : 'No data Found'
-
+  
   // cardInput and cardOutput
   if (data.input_output_examples === null) {
     document.getElementById('cardInput').innerText = "No! Not Yet! Take a break!!!"
@@ -190,87 +188,48 @@ const displayAiToolsDetails = (data) => {
 
   //display Ai Tools Details End
 
-
-// Display ai tools by sort data [Start]
-const displayAiCardsSortData = (data, sortdate, dataLimit) => {
- 
- 
-  // display maximum 6 Ai Tools Start
-  let showAllDateContainer = document.getElementById('showAllDateContainer');
-  if (dataLimit && data.length > 6) {
-    data = data.slice(0, 6);
-    showAllDateContainer.classList.remove('hidden');
-  }
-  else {
-    showAllDateContainer.classList.add('hidden');
-  }
-  // display maximum 6 Ai Tools Start
-
-  //  display all ai tools  start
-  data.forEach(data => {
-    document.getElementById('aiCardContainer').innerHTML += `   
-      <div class="card mt-3 w-96 bg-base-100 shadow-xl border ">
-      <figure class="px-10 pt-10">
-        <img src="${data.image}" alt="Shoes" class="Ai Tools" />
-      </figure>
-      <div class="card-body">
-        <h2 class="text-3xl  font-black">Features</h2>
-        <p class="font-normal text-sm">1. <span>${data.features[0]}</span></p>
-        <p class="font-normal text-sm">2. <span>${data.features[1]}</span></p>
-        <p class="font-normal text-sm">3. <span>${data.features[2]}</span></p>
-        <hr class="border">    
-       <section class="flex justify-between">
-          <div>
-              <h1 id="cardTitle" class="text-3xl  font-black">${data.name}</h1> <br>
-              <p id="SortDate"><img src="./icon/icon.png" alt="Date Icon" class="inline" >  </p>
-          </div>
-          <div class="card-actions pt-5">
-              <label  for="my-modal-3" class="btn btn-outline btn-error text-sm font-bold" onclick="showAiToolsDetails('${data.id}')">Details</label >               
-          </div>
-       </section>         
-      </div>
-    </div> 
-      `
-      // sortdate.forEach(data=> {
-      //   document.getElementById('SortDate').innerText += data
-      // })
-      
-  })
-  // stop spinner or loader
-  toggleSpinner(false);
-  //  display all ai tools  end
-
 }
-// Display ai tools by sort data [end]
-
-//  sorting data start 
-let showSortData = () => {
-
-  // console.log(fetchData);
-  let formatDateData = fetchData.map(r => {
-    let originalDate = r.published_in;
-    let splitDate = originalDate.split('/');
-    let formattedDate = splitDate[2] + '/' + splitDate[1] + '/' + splitDate[0];
-    return formattedDate
-  })
-
-  let result = formatDateData.map(date => new Date(date))
-
-  let sortDate = result.sort(
-    (objA, objB) => Number(objB) - Number(objA),
-  );
- 
-
-  // console.log(sortDate);
-  document.getElementById('aiCardContainer').textContent = ''
-  displayAiCardsSortData(fetchData, sortDate, 6)
 
 
-}}
+
+//  sorting data start
+// let showCardsBySorted = (fetchData,dataLimit,sorted) => {
+//   let aiCardContainer = document.getElementById('aiCardContainer');
+//   aiCardContainer.innerHTML = '';
+//   const showBtn = document.getElementById('showAllDateContainer');
+
+//   if(dataLimit === 6)
+//   {
+//     fetchData = fetchData.slice(0,dataLimit);
+//     showBtn.classList.remove('hidden')
+//   } else {
+//     showBtn.classList.add('hidden')
+//   }
+
+//   if(sorted === true) {
+//     const sortByDate = (a,b)  => {
+//       const first = new Date(a.published_in);
+//       const second = new Date(b.published_in);
+//       if(first  < second  ) {
+//         return 1;
+//       } else if ( first > second  ){
+//         return -1;
+//       } else {
+//         return 0;
+//       }
+//     };
+//     fetchData.sort(sortByDate);
+//   } else {
+//     fetchData = fetchData
+//   }
+// }
 //  sorting data end
 
-
+const sort = (dataLimit) =>  {
+  aiCards(dataLimit,true)
+}
 
 // start spinner or loader
+
 toggleSpinner(true)
 aiCards(6)
